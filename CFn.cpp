@@ -9,9 +9,9 @@ CFn::~CFn()
 {
 }
 
-CPoint CFn::GetPoint(double A, double Fi)
+CPoint CFn::GetPoint(double amplitude, double frequency, double m, double t)
 {
-	double x = sin(A);
-	double y = sin(2. * A + Fi);//lissaget
+	double x = t;
+	double y = amplitude * sin(2 * 3.14 * (frequency + m * sin(2 * 3.14 * 100 * t) * t));
 	return CLinTr::Transform(x, y);
 }

@@ -9,12 +9,12 @@ CPntAr::~CPntAr()
 {
 }
 
-unsigned int CPntAr::CalcPoints(double Fi)
+unsigned int CPntAr::CalcPoints(double amplitude, double frequency, double m)
 {
 	Points.clear();
-	for (double a = 0; a <= 2. * 3.14; a += .017)
+	for (double t = 1; t <= 1000; t += 0.01)
 	{
-		CPoint pt = GetPoint(a, Fi);
+		CPoint pt = GetPoint(amplitude, frequency, m, t);
 		Points.push_back(pt);
 	}
 	return Points.size();

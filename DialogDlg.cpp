@@ -52,10 +52,10 @@ END_MESSAGE_MAP()
 
 CDialogDlg::CDialogDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_DIALOG_DIALOG, pParent)
-	, amplitude(_T(""))
-	, frequency(_T(""))
-	, countdown(_T(""))
-	, m(_T(""))
+	, amplitude(_T("0"))
+	, frequency(_T("0"))
+	, countdown(_T("0"))
+	, m(_T("0"))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -111,15 +111,15 @@ BOOL CDialogDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	graph1.SubclassDlgItem(IDC_GRAPH1, this);
-	graph2.SubclassDlgItem(IDC_GRAPH2, this);
+	//graph2.SubclassDlgItem(IDC_GRAPH2, this);
 	CRect rc;
 	graph1.GetClientRect(rc);
-	graph2.GetClientRect(rc);
+	//graph2.GetClientRect(rc);
 	double scale = min(rc.Height() / 2, rc.Width() / 2);
 	points1.SetParam(rc.CenterPoint(), scale, scale);
-	points1.CalcPoints(0);
-	points2.SetParam(rc.CenterPoint(), scale, scale);
-	points2.CalcPoints(0);
+	points1.CalcPoints(0,0,0);
+	//points2.SetParam(rc.CenterPoint(), scale, scale);
+	//points2.CalcPoints(0,0,0);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -177,6 +177,6 @@ void CDialogDlg::Calculate()
 {
 	UpdateData(TRUE);
 	double dRadP = _wtof(frequency) * 3.14 / 180.;
-	points1.CalcPoints(dRadP);
+	points1.CalcPoints(_wtof(amplitude), _wtof(frequency), _wtof(m));
 	graph1.Invalidate();
 }
