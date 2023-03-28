@@ -37,10 +37,11 @@ public:
 	afx_msg void Calculate();
 	Graph graph1;
 	Graph graph2;
-	CString amplitude;
-	CString frequency;
-	CString m;
-	CString countdown;
+	double amplitude;
+	double frequency;
+	double m;
+	int countdown;
+	unsigned int Fm;
 	CPntAr points1;
 	CPntAr points2;
 };

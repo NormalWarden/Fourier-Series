@@ -17,6 +17,7 @@
 #define IDC_EDIT5                       1009
 #define IDC_EDIT6                       1010
 #define IDC_COMBO2                      1011
+#define IDC_EDIT7                       1012
 #define IDC_GRAPH1                      1014
 #define IDC_GRAPH2                      1015
 #define IDC_PROGRESS1                   1016

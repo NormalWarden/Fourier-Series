@@ -15,21 +15,24 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CFn">
-    <Position X="5" Y="3" Width="1.5" />
+    <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>CFn.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CLinTr">
-    <Position X="5" Y="0.5" Width="1.5" />
+    <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEAAAAAAAAAAgQAAAAIAAAAAAAAAAAAAAg=</HashCode>
       <FileName>CLinTr.h</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="sd" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="CPntAr">
-    <Position X="6.75" Y="3" Width="1.5" />
+    <Position X="4.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAgAAAAAAAAAAEAIACAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CPntAr.h</FileName>
@@ -52,12 +55,18 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>EwCAAAEAAAAAABAAARAQAAAECCAAAASAAgAAAAAQAAA=</HashCode>
+      <HashCode>EwCAAAEAIAAAABAAABAQAAAECCAAAASAAgAAAAAQAAA=</HashCode>
       <FileName>DialogDlg.h</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="points1" />
+      <Field Name="graph1" />
+      <Field Name="points2" />
+      <Field Name="graph2" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Graph">
-    <Position X="7" Y="0.5" Width="1.5" />
+    <Position X="4.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAEAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Graph.h</FileName>

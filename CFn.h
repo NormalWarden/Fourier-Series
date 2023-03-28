@@ -6,6 +6,6 @@ class CFn :
 public:
 	CFn();
 	virtual ~CFn();
-	CPoint GetPoint(double amplitude, double frequency, double m, double t);
+	CPoint GetPoint(double amplitude, double frequency, double m, double t, unsigned int Fm);
 };
 

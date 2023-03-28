@@ -11,6 +11,7 @@
 #define new DEBUG_NEW
 #endif
 
+#define Fd 10000000
 
 // CAboutDlg dialog used for App About
 
@@ -52,10 +53,11 @@ END_MESSAGE_MAP()
 
 CDialogDlg::CDialogDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_DIALOG_DIALOG, pParent)
-	, amplitude(_T("0"))
-	, frequency(_T("0"))
-	, countdown(_T("0"))
-	, m(_T("0"))
+	, amplitude(0)
+	, frequency(1000000)
+	, countdown(100)
+	, m(0)
+	, Fm(100000)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -64,9 +66,15 @@ void CDialogDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT1, amplitude);
+	DDV_MinMaxDouble(pDX, amplitude, 0, 10);
 	DDX_Text(pDX, IDC_EDIT4, frequency);
+	DDV_MinMaxDouble(pDX, frequency, Fd * 0.1, Fd * 0.4);
 	DDX_Text(pDX, IDC_EDIT5, countdown);
+	DDV_MinMaxDouble(pDX, countdown, 100, 1000);
 	DDX_Text(pDX, IDC_EDIT6, m);
+	DDV_MinMaxDouble(pDX, m, 0, frequency / 10);
+	DDX_Text(pDX, IDC_EDIT7, Fm);
+	DDV_MinMaxDouble(pDX, Fm, Fd * 0.01, Fd * 0.09);
 }
 
 BEGIN_MESSAGE_MAP(CDialogDlg, CDialogEx)
@@ -117,7 +125,7 @@ BOOL CDialogDlg::OnInitDialog()
 	//graph2.GetClientRect(rc);
 	double scale = min(rc.Height() / 2, rc.Width() / 2);
 	points1.SetParam(rc.CenterPoint(), scale, scale);
-	points1.CalcPoints(0,0,0);
+	points1.CalcPoints(0,0,0,0);
 	//points2.SetParam(rc.CenterPoint(), scale, scale);
 	//points2.CalcPoints(0,0,0);
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -175,8 +183,7 @@ HCURSOR CDialogDlg::OnQueryDragIcon()
 
 void CDialogDlg::Calculate()
 {
-	UpdateData(TRUE);
-	double dRadP = _wtof(frequency) * 3.14 / 180.;
-	points1.CalcPoints(_wtof(amplitude), _wtof(frequency), _wtof(m));
+	UpdateData();
+	points1.CalcPoints(amplitude, frequency, m, Fm);
 	graph1.Invalidate();
 }
