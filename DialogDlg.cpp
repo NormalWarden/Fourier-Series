@@ -75,6 +75,7 @@ void CDialogDlg::DoDataExchange(CDataExchange* pDX)
 	DDV_MinMaxDouble(pDX, m, 0, frequency / 10);
 	DDX_Text(pDX, IDC_EDIT7, Fm);
 	DDV_MinMaxDouble(pDX, Fm, Fd * 0.01, Fd * 0.09);
+	DDX_Control(pDX, IDC_COMBO2, comboBox);
 }
 
 BEGIN_MESSAGE_MAP(CDialogDlg, CDialogEx)
@@ -118,16 +119,17 @@ BOOL CDialogDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
+	comboBox.SelectString(0, L"Линейный");
 	graph1.SubclassDlgItem(IDC_GRAPH1, this);
-	//graph2.SubclassDlgItem(IDC_GRAPH2, this);
+	graph2.SubclassDlgItem(IDC_GRAPH2, this);
 	CRect rc;
 	graph1.GetClientRect(rc);
-	//graph2.GetClientRect(rc);
+	graph2.GetClientRect(rc);
 	double scale = min(rc.Height() / 2, rc.Width() / 2);
 	points1.SetParam(rc.CenterPoint(), scale, scale);
 	points1.CalcPoints(0,0,0,0);
-	//points2.SetParam(rc.CenterPoint(), scale, scale);
-	//points2.CalcPoints(0,0,0);
+	points2.SetParam(rc.CenterPoint(), scale, scale);
+	points2.CalcPoints(0,0,0,0);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 

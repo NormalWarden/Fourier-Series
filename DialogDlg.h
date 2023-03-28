@@ -44,4 +44,5 @@ public:
 	unsigned int Fm;
 	CPntAr points1;
 	CPntAr points2;
+	CComboBox comboBox;
 };
