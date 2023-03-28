@@ -37,10 +37,10 @@ public:
 	afx_msg void Calculate();
 	Graph graph1;
 	Graph graph2;
-	double amplitude;
-	double frequency;
+	unsigned int amplitude;
+	float frequency;
 	double m;
-	int countdown;
+	unsigned int countdown;
 	unsigned int Fm;
 	CPntAr points1;
 	CPntAr points2;
