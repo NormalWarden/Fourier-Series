@@ -19,6 +19,7 @@ void Graph::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 	CRect rc;
+	CRgn Rgn;
 	CPen penB, penG;
 	HGDIOBJ pold = dc.SelectObject(penB);
 	CDialogDlg* pDlg = (CDialogDlg*)AfxGetMainWnd();
@@ -27,6 +28,10 @@ void Graph::OnPaint()
 
 	GetClientRect(&rc); // getting coordinates of working place
 
+	// limiting place for graph
+	Rgn.CreateRectRgn(rc.left, rc.top, rc.right, rc.bottom);
+	dc.SelectClipRgn(&Rgn);
+
 	// filling working place
 	dc.FillSolidRect(&rc, RGB(254, 254, 254));
 	penB.CreatePen(PS_DOT, 1, RGB(0, 0, 168));
@@ -34,13 +39,14 @@ void Graph::OnPaint()
 	// painting X and Y axis
 	dc.MoveTo(0, rc.CenterPoint().y);
 	dc.LineTo(rc.right, rc.CenterPoint().y);
-	dc.MoveTo(rc.CenterPoint().x, 0);
-	dc.LineTo(rc.CenterPoint().x, rc.bottom);
+	dc.MoveTo(0, 0);
+	dc.LineTo(0, rc.bottom);
 
-	// creating and choosing pen
+	// creating and choosing pen for painting function
 	penG.CreatePen(PS_SOLID, 1, RGB(0, 168, 0));
 	dc.SelectObject(penG);
 
+	// painting start graph
 	if (n)
 	{
 		dc.MoveTo(Points[0]);

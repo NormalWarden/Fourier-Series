@@ -12,6 +12,8 @@ CPntAr::~CPntAr()
 unsigned int CPntAr::CalcPoints(unsigned int amplitude, float frequency, double m, unsigned int Fm)
 {
 	Points.clear();
+
+	// getting all points for graph (using "t" like time)
 	for (float t = 0; t <= 1000; t += 0.01)
 	{
 		CPoint pt = GetPoint(amplitude, frequency, m, t, Fm);

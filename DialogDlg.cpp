@@ -11,7 +11,7 @@
 #define new DEBUG_NEW
 #endif
 
-#define Fd 10000000
+#define Fd 10000000 // define for calculating points of function
 
 // CAboutDlg dialog used for App About
 
@@ -66,15 +66,15 @@ void CDialogDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT1, amplitude);
-	DDV_MinMaxDouble(pDX, amplitude, 0, 10);
+	DDV_MinMaxDouble(pDX, amplitude, 0, 10);				// 0 <= amplitude <= 10
 	DDX_Text(pDX, IDC_EDIT4, frequency);
-	DDV_MinMaxDouble(pDX, frequency, Fd * 0.1, Fd * 0.4);
+	DDV_MinMaxDouble(pDX, frequency, Fd * 0.1, Fd * 0.4);	// Fd*0.1 <= frequency <= Fd*0.4
 	DDX_Text(pDX, IDC_EDIT5, countdown);
-	DDV_MinMaxDouble(pDX, countdown, 100, 1000);
+	DDV_MinMaxDouble(pDX, countdown, 100, 1000);			// 100 <= countdown <= 1000
 	DDX_Text(pDX, IDC_EDIT6, m);
-	DDV_MinMaxDouble(pDX, m, 0, frequency / 10);
+	DDV_MinMaxDouble(pDX, m, 0, frequency / 10);			// 0 <= m <= frequency / 10
 	DDX_Text(pDX, IDC_EDIT7, Fm);
-	DDV_MinMaxDouble(pDX, Fm, Fd * 0.01, Fd * 0.09);
+	DDV_MinMaxDouble(pDX, Fm, Fd * 0.01, Fd * 0.09);		// Fd*0.01 <= Fm <= Fd*0.09
 	DDX_Control(pDX, IDC_COMBO2, comboBox);
 }
 
@@ -119,17 +119,25 @@ BOOL CDialogDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	comboBox.SelectString(0, L"Линейный");
+	comboBox.SelectString(0, L"Линейный"); // choosing default value of comboBox
+
+	// linking graphs with its places
 	graph1.SubclassDlgItem(IDC_GRAPH1, this);
 	graph2.SubclassDlgItem(IDC_GRAPH2, this);
+
+	// getting places (x and y of pixels) of graphs
 	CRect rc;
 	graph1.GetClientRect(rc);
 	graph2.GetClientRect(rc);
+
 	double scale = min(rc.Height() / 2, rc.Width() / 2);
+
+	// calculating first graphs (lines)
 	points1.SetParam(rc.CenterPoint(), scale, scale);
 	points1.CalcPoints(0,0,0,0);
 	points2.SetParam(rc.CenterPoint(), scale, scale);
 	points2.CalcPoints(0,0,0,0);
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -185,7 +193,7 @@ HCURSOR CDialogDlg::OnQueryDragIcon()
 
 void CDialogDlg::Calculate()
 {
-	UpdateData();
-	points1.CalcPoints(amplitude, frequency, m, Fm);
-	graph1.Invalidate();
+	UpdateData(); // updating variables linking with input values
+	points1.CalcPoints(amplitude, frequency, m, Fm); // updating points
+	graph1.Invalidate(); // repainting
 }

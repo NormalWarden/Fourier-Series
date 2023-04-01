@@ -35,14 +35,22 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void Calculate();
-	Graph graph1;
-	Graph graph2;
+
+	// input variables
 	unsigned int amplitude;
 	float frequency;
 	double m;
 	unsigned int countdown;
 	unsigned int Fm;
+
+	// graphs for function
+	Graph graph1;
+	Graph graph2;
+
+	// variables for containing points for graph1 and graph2
 	CPntAr points1;
 	CPntAr points2;
+
+	// place for choosing linear of logarithmic view
 	CComboBox comboBox;
 };

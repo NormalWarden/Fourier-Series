@@ -55,14 +55,12 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>EwCAAAEAIAAAABAAABAQAAAECCAAAASAAgAAAAAQAAA=</HashCode>
+      <HashCode>EwCAAAEAIAAAABAQABAQAAAEACAAAASAAgAAAAAQAAA=</HashCode>
       <FileName>DialogDlg.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="points1" />
-      <Field Name="graph1" />
       <Field Name="points2" />
-      <Field Name="graph2" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Graph">
