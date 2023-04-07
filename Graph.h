@@ -4,8 +4,10 @@
 class Graph :
     public CStatic
 {
+private:
+    bool upperGraph;
 public:
-    Graph();
+    Graph(bool upperGraph);
     virtual ~Graph();
     DECLARE_MESSAGE_MAP()
         afx_msg void OnPaint();

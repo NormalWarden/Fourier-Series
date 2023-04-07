@@ -7,8 +7,9 @@ BEGIN_MESSAGE_MAP(Graph, CStatic)
 	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
-Graph::Graph()
+Graph::Graph(bool upperGraph)
 {
+	this->upperGraph = upperGraph;
 }
 
 Graph::~Graph()
@@ -24,7 +25,11 @@ void Graph::OnPaint()
 	HGDIOBJ pold = dc.SelectObject(penB);
 	CDialogDlg* pDlg = (CDialogDlg*)AfxGetMainWnd();
 	std::vector<CPoint> Points;
-	unsigned int n = pDlg->points1.GetPoints(Points);
+	unsigned int n;
+	if (upperGraph)
+		n = pDlg->points1.GetPoints(Points);
+	else
+		n = pDlg->points2.GetPoints(Points);
 
 	GetClientRect(&rc); // getting coordinates of working place
 
@@ -44,14 +49,28 @@ void Graph::OnPaint()
 
 	// creating and choosing pen for painting function
 	penG.CreatePen(PS_SOLID, 1, RGB(0, 168, 0));
-	dc.SelectObject(penG);
 
 	// painting start graph
 	if (n)
 	{
+		for (int i = 1; i < n; i++)
+		{
+			if ((i % 10) == 0)
+			{
+
+				dc.MoveTo(Points[i].x, 90 - 5);
+				dc.LineTo(Points[i].x, 90 + 5);
+				CString number;
+				number.Format(L"%d", i / 10);
+				dc.TextOutW(Points[i].x-10, 100, number);
+			}
+		}
+		dc.SelectObject(penG);
 		dc.MoveTo(Points[0]);
 		for (int i = 1; i < n; i++)
+		{
 			dc.LineTo(Points[i]);
+		}
 	}
 
 	dc.SelectObject(pold);

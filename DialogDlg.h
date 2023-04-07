@@ -39,13 +39,13 @@ public:
 	// input variables
 	unsigned int amplitude;
 	float frequency;
-	double m;
+	float m;
 	unsigned int countdown;
-	unsigned int Fm;
+	float Fm;
 
 	// graphs for function
-	Graph graph1;
-	Graph graph2;
+	Graph graph1 = {true};
+	Graph graph2 = {false};
 
 	// variables for containing points for graph1 and graph2
 	CPntAr points1;
@@ -53,4 +53,13 @@ public:
 
 	// place for choosing linear of logarithmic view
 	CComboBox comboBox;
+	afx_msg void xEdit();
+	afx_msg void yEdit();
+	unsigned int x;
+	unsigned int y;
+	afx_msg void EditEventAmplitude();
+	afx_msg void EditEventFrequency();
+	afx_msg void EditEventCountdown();
+	afx_msg void EditEventM();
+	afx_msg void EditEventFm();
 };

@@ -9,9 +9,21 @@ CFn::~CFn()
 {
 }
 
-CPoint CFn::GetPoint(unsigned int amplitude, float frequency, double m, float t, unsigned int Fm)
+CPoint CFn::GetPoint(unsigned int amplitude, float frequency, double m, float t, float Fm, unsigned int countdown)
 {
 	double x = t;
 	double y = amplitude * sin(2 * 3.14 * (frequency + m * sin(2 * 3.14 * Fm * t) * t)); // main function for graph (let it go to hell)
+	return CLinTr::Transform(x, y);
+}
+
+CPoint CFn::GetPoint2(unsigned int amplitude, float frequency, double m, float t, float Fm)
+{
+	double x = t;
+	double y = amplitude * sin(2 * 3.14 * (frequency + m * sin(2 * 3.14 * Fm * t) * t));
+
+	if (!fmod(t, 2.))
+	{
+		y = 0;
+	}
 	return CLinTr::Transform(x, y);
 }
