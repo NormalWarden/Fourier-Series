@@ -53,16 +53,34 @@ void Graph::OnPaint()
 	// painting start graph
 	if (n)
 	{
-		for (int i = 1; i < n; i++)
+		if (upperGraph)
 		{
-			if ((i % 10) == 0)
+			for (int i = 1; i < n; i++)
 			{
+				if ((i % 10) == 0)
+				{
 
-				dc.MoveTo(Points[i].x, 90 - 5);
-				dc.LineTo(Points[i].x, 90 + 5);
-				CString number;
-				number.Format(L"%d", i / 10);
-				dc.TextOutW(Points[i].x-10, 100, number);
+					dc.MoveTo(Points[i].x, 90 - 5);
+					dc.LineTo(Points[i].x, 90 + 5);
+					CString number;
+					number.Format(L"%d", i / 10);
+					dc.TextOutW(Points[i].x - 10, 100, number);
+				}
+			}
+		}
+		else
+		{
+			for (int i = 1; i < n; i++)
+			{
+				if ((i % 10) == 0)
+				{
+
+					dc.MoveTo(Points[i].x, 90 - 5);
+					dc.LineTo(Points[i].x, 90 + 5);
+					CString number;
+					number.Format(L"%d", i / 10);
+					dc.TextOutW(Points[i].x - 10, 100, number);
+				}
 			}
 		}
 		dc.SelectObject(penG);

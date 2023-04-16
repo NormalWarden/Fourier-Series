@@ -22,22 +22,15 @@ unsigned int CPntAr::CalcPoints(unsigned int amplitude, float frequency, double 
 	return Points.size();
 }
 
-unsigned int CPntAr::CalcPoints2(unsigned int amplitude, float frequency, double m, float Fm)
+unsigned int CPntAr::CalcPoints2(unsigned int amplitude, float frequency, double m, float Fm, unsigned int countdown)
 {
 	Points.clear();
 
 	// getting all points for graph (using "t" like time)
-	for (float t = 0; t <= 1000; t += 0.1)
+	for (int k = 0; k <= countdown; k++)
 	{
 		CPoint pt;
-		pt.x = t;
-		pt.y = 90;
-		Points.push_back(pt);
-		pt = GetPoint2(amplitude, frequency, m, t, Fm);
-		pt.x = t;
-		Points.push_back(pt);
-		pt.x = t;
-		pt.y = 90;
+		pt = GetPoint2(amplitude, frequency, m, Fm, countdown, k);
 		Points.push_back(pt);
 	}
 	return Points.size();

@@ -139,15 +139,18 @@ BOOL CDialogDlg::OnInitDialog()
 	CRect rc;
 	graph1.GetClientRect(rc);
 	graph2.GetClientRect(rc);
-
-	double scale = min(rc.Height() / 2, rc.Width() / 2);
+	
+	double scale1 = min(rc.Height() / 2, rc.Width() / 2);
+	double scale2 = min(rc.Height() / 2, rc.Width() / 2);
+	CPoint point1 = { 0, 90 };
+	CPoint point2 = { 0, 90 };
 
 	UpdateData();
 	// calculating first graphs (lines)
-	points1.SetParam(rc.CenterPoint(), scale, scale);
+	points1.SetParam(point1, 50, scale1);
 	points1.CalcPoints(amplitude,frequency,m,Fm,countdown);
-	//points2.SetParam(rc.CenterPoint(), scale, scale);
-	//points2.CalcPoints2(0,0,0,0);
+	points2.SetParam(point2, 5, 90);
+	points2.CalcPoints2(amplitude, frequency, m, Fm, countdown);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -208,17 +211,18 @@ void CDialogDlg::Calculate()
 
 	// updating points
 	points1.CalcPoints(amplitude, frequency, m, Fm, countdown);
-	//points2.CalcPoints2(amplitude, frequency, m, Fm);
+	points2.CalcPoints2(amplitude, frequency, m, Fm, countdown);
 
 	// repainting
 	graph1.Invalidate();
-	//graph2.Invalidate();
+	graph2.Invalidate();
 }
 
 void CDialogDlg::xEdit()
 {
 	UpdateData();
 	CRect rc;
+	points2.SetParam({ 0,90 }, x, y);
 	switch (x)
 	{
 	case(1):
@@ -255,7 +259,7 @@ void CDialogDlg::xEdit()
 		x *= 1;
 		break;
 	}
-	points1.SetParam(rc.CenterPoint(), x, y);
+	points1.SetParam({ 0,90 }, x, 90/ y);
 	Calculate();
 }
 
@@ -264,6 +268,7 @@ void CDialogDlg::yEdit()
 {
 	UpdateData();
 	CRect rc;
+	points2.SetParam({ 0,90 }, x, y);
 	switch (x)
 	{
 	case(1):
@@ -300,7 +305,7 @@ void CDialogDlg::yEdit()
 		x *= 1;
 		break;
 	}
-	points1.SetParam(rc.CenterPoint(), x, y*90);
+	points1.SetParam({0,90}, x, 90 / y);
 	Calculate();
 }
 
