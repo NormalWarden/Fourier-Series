@@ -44,8 +44,8 @@ public:
 	float Fm;
 
 	// graphs for function
-	Graph graph1 = {true};
-	Graph graph2 = {false};
+	Graph graph1 = true;
+	Graph graph2 = false;
 
 	// variables for containing points for graph1 and graph2
 	CPntAr points1;

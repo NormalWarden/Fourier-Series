@@ -148,7 +148,7 @@ BOOL CDialogDlg::OnInitDialog()
 	UpdateData();
 	// calculating first graphs (lines)
 	points1.SetParam(point1, 50, scale1);
-	points1.CalcPoints(amplitude,frequency,m,Fm,countdown);
+	points1.CalcPoints(amplitude,frequency, m, Fm, countdown);
 	points2.SetParam(point2, 5, 90);
 	points2.CalcPoints2(amplitude, frequency, m, Fm, countdown);
 

@@ -67,6 +67,12 @@ void Graph::OnPaint()
 					dc.TextOutW(Points[i].x - 10, 100, number);
 				}
 			}
+			dc.SelectObject(penG);
+			dc.MoveTo(Points[0]);
+			for (int i = 1; i < n; i++)
+			{
+				dc.LineTo(Points[i]);
+			}
 		}
 		else
 		{
@@ -74,20 +80,19 @@ void Graph::OnPaint()
 			{
 				if ((i % 10) == 0)
 				{
-
 					dc.MoveTo(Points[i].x, 90 - 5);
 					dc.LineTo(Points[i].x, 90 + 5);
 					CString number;
-					number.Format(L"%d", i / 10);
-					dc.TextOutW(Points[i].x - 10, 100, number);
+					number.Format(L"%d", i );
+					dc.TextOutW(Points[i].x - 20, 100, number);
 				}
 			}
-		}
-		dc.SelectObject(penG);
-		dc.MoveTo(Points[0]);
-		for (int i = 1; i < n; i++)
-		{
-			dc.LineTo(Points[i]);
+			dc.SelectObject(penG);
+			for (int i = 0; i < n; i++)
+			{
+				dc.MoveTo(Points[i].x, 90);
+				dc.LineTo(Points[i]);
+			}
 		}
 	}
 
