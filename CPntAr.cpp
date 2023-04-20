@@ -27,11 +27,13 @@ unsigned int CPntAr::CalcPoints2(unsigned int amplitude, float frequency, double
 	Points.clear();
 
 	// getting all points for graph (using "t" like time)
+	float t = 0;
 	for (int k = 0; k <= countdown; k++)
 	{
 		CPoint pt;
-		pt = GetPoint2(amplitude, frequency, m, Fm, countdown, k);
+		pt = GetPoint2(amplitude, frequency, m, t, Fm, countdown, k);
 		Points.push_back(pt);
+		t += 0.1;
 	}
 	return Points.size();
 }

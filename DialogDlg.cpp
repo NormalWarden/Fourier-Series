@@ -222,7 +222,7 @@ void CDialogDlg::xEdit()
 {
 	UpdateData();
 	CRect rc;
-	points2.SetParam({ 0,90 }, x, y);
+	points2.SetParam({ 0,90 }, x/2, 90*y);
 	switch (x)
 	{
 	case(1):
@@ -259,7 +259,7 @@ void CDialogDlg::xEdit()
 		x *= 1;
 		break;
 	}
-	points1.SetParam({ 0,90 }, x, 90/ y);
+	points1.SetParam({ 0,90 }, x, 90/y);
 	Calculate();
 }
 
@@ -268,7 +268,7 @@ void CDialogDlg::yEdit()
 {
 	UpdateData();
 	CRect rc;
-	points2.SetParam({ 0,90 }, x, y);
+	points2.SetParam({ 0,90 }, x/2, 90*y);
 	switch (x)
 	{
 	case(1):
