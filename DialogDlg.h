@@ -62,4 +62,5 @@ public:
 	afx_msg void EditEventCountdown();
 	afx_msg void EditEventM();
 	afx_msg void EditEventFm();
+	afx_msg void Save();
 };

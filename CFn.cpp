@@ -18,7 +18,6 @@ CPoint CFn::GetPoint(unsigned int amplitude, float frequency, double m, float t,
 
 CPoint CFn::GetPoint2(unsigned int amplitude, float frequency, double m, float t, float Fm, unsigned int countdown, int k)
 {
-	//double x = t;
 	countdown = 64;
 	double y = amplitude * sin(2 * 3.14 * (frequency + m * sin(2 * 3.14 * Fm * t)) * t);
 	double tempRes1 = 0, tempRes2 = 0;
@@ -30,5 +29,5 @@ CPoint CFn::GetPoint2(unsigned int amplitude, float frequency, double m, float t
 	double xk1 = y * tempRes1 / countdown, xk2 = y * tempRes2 / countdown;
 	double result = sqrt(xk1 * xk1 + xk2 * xk2);
 
-	return CLinTr::Transform(k, result);
+	return CLinTr::Transform1(k, result);
 }

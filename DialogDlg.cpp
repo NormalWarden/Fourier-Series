@@ -6,6 +6,7 @@
 #include "Dialog.h"
 #include "DialogDlg.h"
 #include "afxdialogex.h"
+#include <string>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -69,13 +70,9 @@ void CDialogDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT1, amplitude);
 	DDX_Text(pDX, IDC_EDIT4, frequency);
-	DDV_MinMaxFloat(pDX, frequency, 0.1*Fd, 0.4*Fd-1);
 	DDX_Text(pDX, IDC_EDIT5, countdown);
-	DDV_MinMaxInt(pDX, countdown, 100, 1000);
 	DDX_Text(pDX, IDC_EDIT6, m);
-	DDV_MinMaxFloat(pDX, m, 0, frequency/10);
 	DDX_Text(pDX, IDC_EDIT7, Fm);
-	DDV_MinMaxFloat(pDX, Fm, 0.01 * Fd, 0.09 * Fd - 1);
 	DDX_Control(pDX, IDC_COMBO2, comboBox);
 	DDX_Text(pDX, IDC_EDIT3, x);
 	DDX_Text(pDX, IDC_EDIT2, y);
@@ -95,6 +92,7 @@ BEGIN_MESSAGE_MAP(CDialogDlg, CDialogEx)
 	ON_EN_CHANGE(IDC_EDIT5, &CDialogDlg::EditEventCountdown)
 	ON_EN_CHANGE(IDC_EDIT6, &CDialogDlg::EditEventM)
 	ON_EN_CHANGE(IDC_EDIT7, &CDialogDlg::EditEventFm)
+	ON_BN_CLICKED(IDOK3, &CDialogDlg::Save)
 END_MESSAGE_MAP()
 
 
@@ -336,4 +334,38 @@ void CDialogDlg::EditEventM()
 void CDialogDlg::EditEventFm()
 {
 	Calculate();
+}
+
+
+void CDialogDlg::Save()
+{
+	CWindowDC dcG1(&graph1), dcG2(&graph2);
+	CRect rc1, rc2;
+	graph1.GetClientRect(&rc1);
+	graph2.GetClientRect(&rc2);
+	CDC dcBmp1, dcBmp2;
+	dcBmp1.CreateCompatibleDC(&dcG1);
+	dcBmp2.CreateCompatibleDC(&dcG2);
+	CBitmap bmp1, bmp2;
+	bmp1.CreateCompatibleBitmap(&dcG1, rc1.Width(), rc1.Height());
+	bmp2.CreateCompatibleBitmap(&dcG2, rc2.Width(), rc2.Height());
+	HGDIOBJ pOld1 = dcBmp1.SelectObject(bmp1);
+	HGDIOBJ pOld2 = dcBmp2.SelectObject(bmp2);
+	dcBmp1.BitBlt(0, 0, rc1.Width(), rc1.Height(), &dcG1, 0, 0, SRCCOPY);
+	dcBmp2.BitBlt(0, 0, rc2.Width(), rc2.Height(), &dcG2, 0, 0, SRCCOPY);
+	dcBmp1.SelectObject(pOld1);
+	dcBmp2.SelectObject(pOld2);
+	std::wstring sFilter = _T("BMP files (*.bmp)|*.bmp||");
+	CFileDialog fl1(FALSE, _T(".bmp"), NULL, 6UL, sFilter.c_str());
+	CFileDialog fl2(FALSE, _T(".bmp"), NULL, 6UL, sFilter.c_str());
+	if (fl1.DoModal() && fl2.DoModal())
+	{
+		CImage im1, im2;
+		im1.Attach(bmp1);
+		im2.Attach(bmp2);
+		std::wstring pathP1 = fl1.GetOFN().lpstrFile;
+		std::wstring pathP2 = fl2.GetOFN().lpstrFile;
+		HRESULT hr1 = im1.Save(pathP1.c_str());
+		HRESULT hr2 = im2.Save(pathP2.c_str());
+	}
 }

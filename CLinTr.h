@@ -15,6 +15,7 @@ protected:
 	ScaleDispl sd;
 public:
 	CPoint Transform(double x, double y);
+	CPoint Transform1(double x, double y);
 	void SetParam(CPoint center, double dmX, double dmY);
 };
 
