@@ -6,7 +6,7 @@ class CFn :
 public:
 	CFn();
 	virtual ~CFn();
-	CPoint GetPoint(unsigned int amplitude, float frequency, double m, float t, float Fm, unsigned int countdown);
-	CPoint GetPoint2(unsigned int amplitude, float frequency, double m, float t, float Fm, unsigned int countdown, int k);
+	CPoint GetPoint(unsigned int amplitude, unsigned int frequency, float m, float t, unsigned int Fm, unsigned int countdown);
+	CPoint GetPoint2(unsigned int amplitude, unsigned int frequency, float m, float t, unsigned int Fm, unsigned int countdown, unsigned int k, bool linView);
 };
 

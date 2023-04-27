@@ -22,8 +22,11 @@
 #define IDC_GRAPH2                      1015
 #define IDC_PROGRESS1                   1016
 #define IDC_PROGRESS2                   1017
-#define IDC_BUTTON1                     1018
 #define IDOK3                           1018
+#define IDOK4                           1019
+#define IDOK5                           1020
+#define IDOK6                           1021
+#define IDOK7                           1022
 
 // Next default values for new objects
 // 

@@ -93,6 +93,11 @@ BEGIN_MESSAGE_MAP(CDialogDlg, CDialogEx)
 	ON_EN_CHANGE(IDC_EDIT6, &CDialogDlg::EditEventM)
 	ON_EN_CHANGE(IDC_EDIT7, &CDialogDlg::EditEventFm)
 	ON_BN_CLICKED(IDOK3, &CDialogDlg::Save)
+	ON_BN_CLICKED(IDOK7, &CDialogDlg::IncreaseGraph1)
+	ON_BN_CLICKED(IDOK6, &CDialogDlg::DecreaseGraph1)
+	ON_BN_CLICKED(IDOK5, &CDialogDlg::IncreaseGraph2)
+	ON_BN_CLICKED(IDOK4, &CDialogDlg::DecreaseGraph2)
+	ON_CBN_SELCHANGE(IDC_COMBO2, &CDialogDlg::SelectLinOrLog)
 END_MESSAGE_MAP()
 
 
@@ -137,18 +142,13 @@ BOOL CDialogDlg::OnInitDialog()
 	CRect rc;
 	graph1.GetClientRect(rc);
 	graph2.GetClientRect(rc);
-	
-	double scale1 = min(rc.Height() / 2, rc.Width() / 2);
-	double scale2 = min(rc.Height() / 2, rc.Width() / 2);
-	CPoint point1 = { 0, 90 };
-	CPoint point2 = { 0, 90 };
 
 	UpdateData();
 	// calculating first graphs (lines)
-	points1.SetParam(point1, 50, scale1);
+	points1.SetParam(50, 90);
 	points1.CalcPoints(amplitude,frequency, m, Fm, countdown);
-	points2.SetParam(point2, 5, 90);
-	points2.CalcPoints2(amplitude, frequency, m, Fm, countdown);
+	points2.SetParam(5, 90);
+	points2.CalcPoints2(amplitude, frequency, m, Fm, countdown, 1);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -209,7 +209,10 @@ void CDialogDlg::Calculate()
 
 	// updating points
 	points1.CalcPoints(amplitude, frequency, m, Fm, countdown);
-	points2.CalcPoints2(amplitude, frequency, m, Fm, countdown);
+	if (comboBox.GetCurSel() == 0)
+		points2.CalcPoints2(amplitude, frequency, m, Fm, countdown, 1);
+	else
+		points2.CalcPoints2(amplitude, frequency, m, Fm, countdown, 0);
 
 	// repainting
 	graph1.Invalidate();
@@ -220,7 +223,9 @@ void CDialogDlg::xEdit()
 {
 	UpdateData();
 	CRect rc;
-	points2.SetParam({ 0,90 }, x/2, 90*y);
+	double xTemp, yTemp;
+	points2.GetParam(xTemp, yTemp);
+	points2.SetParam(x/2, 90*y);
 	switch (x)
 	{
 	case(1):
@@ -257,7 +262,8 @@ void CDialogDlg::xEdit()
 		x *= 1;
 		break;
 	}
-	points1.SetParam({ 0,90 }, x, 90/y);
+	points1.GetParam(xTemp, yTemp);
+	points1.SetParam(x, 90 / y);
 	Calculate();
 }
 
@@ -265,8 +271,10 @@ void CDialogDlg::xEdit()
 void CDialogDlg::yEdit()
 {
 	UpdateData();
-	CRect rc;
-	points2.SetParam({ 0,90 }, x/2, 90*y);
+	CPoint point;
+	double xTemp, yTemp;
+	points2.GetParam(xTemp, yTemp);
+	points2.SetParam(x / 2, 90 * y);
 	switch (x)
 	{
 	case(1):
@@ -303,7 +311,8 @@ void CDialogDlg::yEdit()
 		x *= 1;
 		break;
 	}
-	points1.SetParam({0,90}, x, 90 / y);
+	points1.GetParam(xTemp, yTemp);
+	points1.SetParam(x, 90 / y);
 	Calculate();
 }
 
@@ -365,7 +374,48 @@ void CDialogDlg::Save()
 		im2.Attach(bmp2);
 		std::wstring pathP1 = fl1.GetOFN().lpstrFile;
 		std::wstring pathP2 = fl2.GetOFN().lpstrFile;
-		HRESULT hr1 = im1.Save(pathP1.c_str());
-		HRESULT hr2 = im2.Save(pathP2.c_str());
+		im1.Save(pathP1.c_str());
+		im2.Save(pathP2.c_str());
 	}
+}
+
+
+void CDialogDlg::IncreaseGraph1()
+{
+	double dmX, dmY;
+	points1.GetParam(dmX, dmY);
+	points1.SetParam(dmX * 2, dmY * 2);
+	Calculate();
+}
+
+
+void CDialogDlg::DecreaseGraph1()
+{
+	double dmX, dmY;
+	points1.GetParam(dmX, dmY);
+	points1.SetParam(dmX / 2, dmY / 2);
+	Calculate();
+}
+
+void CDialogDlg::IncreaseGraph2()
+{
+	double dmX, dmY;
+	points2.GetParam(dmX, dmY);
+	points2.SetParam(dmX * 2, dmY * 2);
+	Calculate();
+}
+
+
+void CDialogDlg::DecreaseGraph2()
+{
+	double dmX, dmY;
+	points2.GetParam(dmX, dmY);
+	points2.SetParam(dmX / 2, dmY / 2);
+	Calculate();
+}
+
+
+void CDialogDlg::SelectLinOrLog()
+{
+	Calculate();
 }

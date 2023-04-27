@@ -88,6 +88,7 @@ void Graph::OnPaint()
 				}
 			}
 			dc.SelectObject(penG);
+			dc.MoveTo(Points[0]);
 			for (int i = 0; i < n; i++)
 			{
 				dc.MoveTo(Points[i].x, 90);

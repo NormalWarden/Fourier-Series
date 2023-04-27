@@ -38,10 +38,10 @@ public:
 
 	// input variables
 	unsigned int amplitude;
-	float frequency;
+	unsigned int frequency;
 	float m;
 	unsigned int countdown;
-	float Fm;
+	unsigned int Fm;
 
 	// graphs for function
 	Graph graph1 = true;
@@ -63,4 +63,9 @@ public:
 	afx_msg void EditEventM();
 	afx_msg void EditEventFm();
 	afx_msg void Save();
+	afx_msg void IncreaseGraph1();
+	afx_msg void DecreaseGraph1();
+	afx_msg void IncreaseGraph2();
+	afx_msg void DecreaseGraph2();
+	afx_msg void SelectLinOrLog();
 };
