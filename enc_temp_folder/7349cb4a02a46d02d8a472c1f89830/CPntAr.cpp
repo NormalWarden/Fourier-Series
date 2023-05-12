@@ -36,7 +36,7 @@ unsigned int CPntAr::CalcPoints2(unsigned int amplitude, float frequency, float 
 		CPoint pt;
 		pt = GetPoint2(amplitude, frequency, m, t, Fm, countdown, k, linView);
 		Points.push_back(pt);
-		t += 1e-7;
+		t += 0.01;
 	}
 	return Points.size();
 }

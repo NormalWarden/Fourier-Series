@@ -56,7 +56,7 @@ CDialogDlg::CDialogDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_DIALOG_DIALOG, pParent)
 	, amplitude(1)
 	, frequency(1000000)
-	, countdown(100)
+	, countdown(1000)
 	, m(100000)
 	, Fm(100000)
 	, x(10)
@@ -145,9 +145,9 @@ BOOL CDialogDlg::OnInitDialog()
 
 	UpdateData();
 	// calculating first graphs (lines)
-	points1.SetParam(50, 90);
+	points1.SetParam(1.e7, 90);
 	points1.CalcPoints(amplitude,frequency, m, Fm, countdown);
-	points2.SetParam(5, 90);
+	points2.SetParam(0.5, 900);
 	points2.CalcPoints2(amplitude, frequency, m, Fm, countdown, 1);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -330,6 +330,29 @@ void CDialogDlg::EditEventFrequency()
 
 void CDialogDlg::EditEventCountdown()
 {
+	UpdateData();
+	double dmX, dmY;
+	points2.GetParam(dmX, dmY);
+	if (countdown <= 100)
+		points2.SetParam(5, dmY);
+	else if (countdown <= 200)
+		points2.SetParam(2.5, dmY);
+	else if (countdown <= 300)
+		points2.SetParam(1.65, dmY);
+	else if (countdown <= 400)
+		points2.SetParam(1.25, dmY);
+	else if (countdown <= 500)
+		points2.SetParam(1, dmY);
+	else if (countdown <= 600)
+		points2.SetParam(0.8, dmY);
+	else if (countdown <= 700)
+		points2.SetParam(0.7, dmY);
+	else if (countdown <= 800)
+		points2.SetParam(0.6, dmY);
+	else if (countdown <= 900)
+		points2.SetParam(0.55, dmY);
+	else
+		points2.SetParam(0.5, dmY);
 	Calculate();
 }
 

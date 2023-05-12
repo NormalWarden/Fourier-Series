@@ -25,7 +25,7 @@ CPoint CLinTr::Transform1(double x, double y, bool linView)
 	if (linView)
 		pt.y = (long)(floor(-y * sd.mY + .5)) + 180;
 	else
-		pt.y = -log10(y) * 60 + .5;
+		pt.y = -log10(y) + 90;
 	return pt;
 }
 
